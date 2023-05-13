@@ -1,0 +1,13 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.cart_product>
+@using WebsiteDienNghien.Utils
+
+@foreach (var i in Model)
+{
+    <tr>
+        <td> <img width="60" src="~/Content/upload/images/products/@i.product.img" alt="" /></td>
+        <td>@i.product.name<br />Color: @i.product.color | Size: @i.product.size</td>
+        <td>@i.quantity</td>
+        <td>@Functions.ConvertToVNCurrency(i.product.price)</td>
+        <td>@Functions.ConvertToVNCurrency(i.quantity * i.product.price)</td>
+    </tr>
+}

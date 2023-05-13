@@ -1,0 +1,91 @@
+﻿@model WebsiteDienNghien.Models.news
+
+@{
+    ViewBag.Title = "Chỉnh sửa giảm giá";
+    Layout = "~/Areas/admin/Views/Shared/MyLayout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Quản lý giảm giá</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="@Url.Action("Index", "Default")">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index", "News")">Quản lý giảm giá</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Chỉnh sửa giảm giá</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">Chỉnh sửa giảm giá</h4>
+                    </div>
+                </div>
+                @using (Html.BeginForm("Edit", "News", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="card-body">
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.id)
+
+                            <div class="form-group">
+                                @Html.Label("Tên", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Chọn ảnh", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <div class="col-md-10">
+                                        <input type="file" name="img" id="img" accept=".jpg,.png,.gif,.jpeg,.bmp" />
+                                    </div>
+                                    <div class="avatar avatar-xxl">
+                                        <img src="~/Content/upload/images/news/@Model.img" alt="..." class="avatar-img rounded">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Label("Ẩn", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.hide)
+                                        @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Lưu" class="btn btn-success" /> |
+                                @Html.ActionLink("Trở về", "Index", routeValues: new { }, htmlAttributes: new { data_modal = "", @class = "btn btn-default" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+    </div>

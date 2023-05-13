@@ -1,0 +1,16 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.product>
+@using WebsiteDienNghien.Utils
+
+@foreach (var i in Model)
+{
+    <li class="span3">
+        <div class="thumbnail">
+            <i class="tag"></i>
+            <a href="~/@ViewBag.meta/@i.category.meta/@i.id"><img src="~/Content/upload/images/products/@i.img" alt=""></a>
+            <div class="caption">
+                <h5>@i.name</h5>
+                <h4><a class="btn" href="~/@ViewBag.meta/@i.category.meta/@i.id">VIEW</a> <span class="pull-right">@Functions.ConvertToVNCurrency(i.price)</span></h4>
+            </div>
+        </div>
+    </li>
+}

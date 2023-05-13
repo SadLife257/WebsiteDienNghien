@@ -1,0 +1,105 @@
+﻿@model WebsiteDienNghien.Models.product
+@using WebsiteDienNghien.Utils
+
+@{
+    ViewBag.Title = Model.name + " Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+<div id="mainBody">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar ================================================== -->
+            <div id="sidebar" class="span3">
+                <div class="well well-small">
+                    <a id="myCart" href="@Url.Action("Index", "Cart", new { id = ViewBag.user_id})"><img src="~/Content/upload/images/ico-cart.png" alt="cart">GIỎ HÀNG<span class="badge badge-warning pull-right">MUA NGAY</span></a>
+                </div>
+                <ul id="sideManu" class="nav nav-tabs nav-stacked">
+                    @{Html.RenderAction("getCategorySideBar", "Default"); }
+                </ul>
+                <br />
+                <div class="thumbnail">
+                    <img src="~/Content/upload/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
+                    <div class="caption">
+                        <h5>Payment Methods</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar end=============================================== -->
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Default")">Trang chủ</a> <span class="divider">/</span></li>
+                    <li><a href="@Url.Action("Index", "Product", new { meta = Model.category.meta})">Sản phẩm</a> <span class="divider">/</span></li>
+                    <li class="active">@Model.name</li>
+                </ul>
+                <div class="row">
+                    <div id="gallery" class="span3">
+                        <a href="~/Content/upload/images/products/@Model.img" title="@Model.name">
+                            <img src="~/Content/upload/images/products/@Model.img" style="width:100%" alt="@Model.name" />
+                        </a>
+                        <div id="differentview" class="moreOptopm carousel slide">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <a href="~/Content/upload/images/products/@Model.img"> <img style="width:29%" src="~/Content/upload/images/products/@Model.img" alt="" /></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <h3>@Model.name</h3>
+                        <hr class="soft" />
+                        @using (Html.BeginForm("addToCart", "Cart", new { productid = Model.id, ReturnUrl = Url.Action("Detail", "Product", new { id = Model.id})}, FormMethod.Post, new { @class = "form-horizontal qtyFrm" }))
+                        {
+                            <div class="control-group">
+                                <label class="control-label"><span>@Functions.ConvertToVNCurrency(Model.price)</span></label>
+                                <div class="controls">
+                                    <input name="quantity" type="number" class="span1" placeholder="Số lượng" />
+                                    <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
+                                </div>
+                            </div>
+                        }
+                        <hr class="soft" />
+                        <hr class="soft clr" />
+                        <a class="btn btn-small pull-right" href="#detail">Xem chi tiết</a>
+                        <br class="clr" />
+                        <a href="#" name="detail"></a>
+                        <hr class="soft" />
+                    </div>
+
+                    <div class="span9">
+                        <ul id="productDetail" class="nav nav-tabs">
+                            <li class="active"><a href="#home" data-toggle="tab">Product Details</a></li>
+                            <li><a href="#profile" data-toggle="tab">Related Products</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="home">
+                                @Html.Raw(Model.detail)
+                            </div>
+                            <div class="tab-pane fade" id="profile">
+                                <div id="myTab" class="pull-right">
+                                    <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+                                    <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+                                </div>
+                                <br class="clr" />
+                                <hr class="soft" />
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="listView">
+                                        @Html.Action("getProductList", "Product", new { id = Model.categoryid })
+                                    </div>
+                                    <div class="tab-pane active" id="blockView">
+                                        <ul class="thumbnails">
+                                            @Html.Action("getProductBlock", "Product", new { id = Model.categoryid })
+                                        </ul>
+                                        <hr class="soft" />
+                                    </div>
+                                </div>
+                                <br class="clr">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- MainBody End ============================= -->
+        </div>
+    </div>
+</div>

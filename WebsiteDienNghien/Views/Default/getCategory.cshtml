@@ -1,0 +1,7 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.category>
+
+@*52000632 - Nguyễn Lê Gia Bảo*@
+@foreach (var i in Model)
+{
+    <option value="@i.meta" style="text-transform: uppercase;">@i.name</option>
+}

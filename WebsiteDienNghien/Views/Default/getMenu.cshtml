@@ -1,0 +1,6 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.menu>
+
+@foreach (var i in Model)
+{
+    <li class="" style="text-transform: capitalize;"><a href="@i.link">@i.name</a></li>
+}

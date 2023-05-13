@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.feedback>
+@using WebsiteDienNghien.Utils
+
+@foreach (var i in Model)
+{
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                @if (i.read)
+                {
+                    <div class="col-1">
+                        <button type="button"
+                                class="btn btn-icon btn-round btn-default"
+                                disabled="disabled">
+                            <i class="fa fa-check"></i>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-1">
+                        <button type="button"
+                                class="btn btn-icon btn-round btn-default"
+                                disabled="disabled">
+                            <i class="fas fa-exclamation"></i>
+                        </button>
+                    </div>
+                }
+                <div class="col-3">
+                    <h4 class="card-title">@i.email</h4>
+                </div>
+                <div class="col">
+                    <h4 class="card-title">@i.subject</h4>
+                </div>
+                <div class="col-3">
+                    @Html.NoEncodeActionLink(
+                        "<i class='fas fa-eye'></i><p> Đọc </p> ",
+                        "Đọc",
+                        "FeedbackDetail",
+                        "Default",
+                        routeValues: new { id = i.id },
+                        htmlAttributes: new { @class = "btn btn-round btn-primary" }
+                    )
+                    @Html.NoEncodeActionLink(
+                        "<i class='fas fa-times'></i><p> Xóa </p> ",
+                        "Xoa`",
+                        "deleteFeedback",
+                        "Default",
+                        routeValues: new { id = i.id },
+                        htmlAttributes: new { @class = "btn btn-round btn-danger" }
+                    )
+                </div>
+            </div>
+        </div>
+    </div>
+}

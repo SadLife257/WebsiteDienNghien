@@ -1,0 +1,209 @@
+﻿@using WebsiteDienNghien.Utils
+@model IEnumerable<WebsiteDienNghien.Models.account>
+
+@{
+    ViewBag.Title = "Quản lý tài khoản";
+    Layout = "~/Areas/admin/Views/Shared/MyLayout.cshtml";
+}
+
+@section _Footer
+{
+    <script>
+        $(document).ready(function () {
+            $('#basic-datatables').DataTable({
+            });
+
+            $('#multi-filter-select').DataTable({
+                "pageLength": 5,
+                initComplete: function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        var select = $('<select class="form-control"><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            });
+
+            // Add Row
+            $('#add-row').DataTable({
+                "pageLength": 5,
+            });
+
+            var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+            $('#addRowButton').click(function () {
+                $('#add-row').dataTable().fnAddData([
+                    $("#addName").val(),
+                    $("#addPosition").val(),
+                    $("#addOffice").val(),
+                    action
+                ]);
+                $('#addRowModal').modal('hide');
+
+            });
+        });
+    </script>
+}
+
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Quản lý tài khoản</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="@Url.Action("Index", "Default")">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Quản lý tài khoản</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">Tài khoản</h4>
+                        @Html.NoEncodeActionLink(
+                        "<i class='fa fa-plus'></i> Thêm mới",
+                        "Create",
+                        "Create",
+                        "Accounts",
+                        routeValues: new { },
+                        htmlAttributes: new { data_modal = "", @class = "btn btn-primary btn-round ml-auto" }
+                        )
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="add-row" class="display table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        No.
+                                    </th>
+                                    <th>
+                                        Tên
+                                    </th>
+                                    <th>
+                                        Họ và tên lót
+                                    </th>
+                                    <th>
+                                        Tên người dùng
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Quyền
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>
+                                        No.
+                                    </th>
+                                    <th>
+                                        Tên
+                                    </th>
+                                    <th>
+                                        Họ và tên lót
+                                    </th>
+                                    <th>
+                                        Tên người dùng
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Quyền
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                @{var Number = 1; }
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.Raw(Number++)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.firstname)
+                                        </td>
+                                        <td style="text-align:left; white-space:nowrap">
+                                            @Html.DisplayFor(modelItem => item.lassname)
+                                        </td>
+                                        <td style="text-align:left; white-space:nowrap">
+                                            @Html.DisplayFor(modelItem => item.username)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.email)
+                                        </td>
+                                        <td>
+                                            @{
+                                                string nameList = "";
+                                            }
+                                            @foreach (var r in item.roles)
+                                            {
+                                                nameList += r.name + ", ";
+                                            }
+                                            @Html.Raw(nameList.Trim().TrimEnd(','))
+                                        </td>
+                                        <td>
+                                            <div class="form-button-action" style="height: 30px; line-height: 30px; padding: 5px;">
+                                                @Html.NoEncodeActionLink(
+                                                "<i class='fa fa-edit'></i>",
+                                                "Edit",
+                                                "Edit",
+                                                "Accounts",
+                                                routeValues: new { id = item.id },
+                                                htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-primary btn-icon" }
+                                                )
+                                                @Html.NoEncodeActionLink(
+                                                "<i class='fa fa-info-circle'></i>",
+                                                "Details",
+                                                "Details",
+                                                "Accounts",
+                                                routeValues: new { id = item.id },
+                                                htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-primary btn-icon" }
+                                                )
+                                                @Html.NoEncodeActionLink(
+                                                "<i class='fa fa-times'></i>",
+                                                "Delete",
+                                                "Delete",
+                                                "Accounts",
+                                                routeValues: new { id = item.id },
+                                                htmlAttributes: new { data_modal = "", @class = "btn btn-link btn-danger btn-icon" }
+                                                )
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

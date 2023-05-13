@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.cart>
+
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+@*THE IDEA IS TO DISPLAY MULTIPLE TABLE REPRESENT AN ORDER CUSTOMER HAD MADE, QUANTITY CAN'T BE ALTER'*@
+
+<div id="mainBody">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar ================================================== -->
+            <div id="sidebar" class="span3">
+                <div class="well well-small">
+                    <a id="myCart" href="@Url.Action("Index", "Cart", new { id = ViewBag.user_id})"><img src="~/Content/upload/images/ico-cart.png" alt="cart">GIỎ HÀNG<span class="badge badge-warning pull-right">MUA NGAY</span></a>
+                </div>
+                <ul id="sideManu" class="nav nav-tabs nav-stacked">
+                    @{Html.RenderAction("getCategorySideBar", "Default"); }
+                </ul>
+                <br />
+                <div class="thumbnail">
+                    <img src="~/Content/upload/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
+                    <div class="caption">
+                        <h5>Payment Methods</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar end=============================================== -->
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Default")">Trang chủ</a> <span class="divider">/</span></li>
+                    <li class="active">Giao hàng</li>
+                </ul>
+                <h3>  ĐANG GIAO [ <small>@ViewBag.count đơn hàng</small>]<a href="@Url.Action("Index", "Default")" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> TRỞ LẠI </a></h3>
+                <hr class="soft" />
+                @Html.Action("getAccountOrder", "Cart", new { id = ViewBag.id })
+                <a href="@Url.Action("Index", "Cart", new { id = ViewBag.id })" class="btn btn-large"><i class="icon-arrow-left"></i> TRỞ LẠI </a>
+
+            </div>
+            <!-- MainBody End ============================= -->
+        </div>
+    </div>
+</div>

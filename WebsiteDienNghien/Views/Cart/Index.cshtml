@@ -1,0 +1,67 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.cart>
+@using WebsiteDienNghien.Utils
+
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+<div id="mainBody">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar ================================================== -->
+            <div id="sidebar" class="span3">
+                <div class="well well-small">
+                    <a id="myCart" href="@Url.Action("Index", "Cart", new { id = ViewBag.user_id})"><img src="~/Content/upload/images/ico-cart.png" alt="cart">GIỎ HÀNG<span class="badge badge-warning pull-right">MUA NGAY</span></a>
+                </div>
+                <ul id="sideManu" class="nav nav-tabs nav-stacked">
+                    @{Html.RenderAction("getCategorySideBar", "Default"); }
+                </ul>
+                <br />
+                <div class="thumbnail">
+                    <img src="~/Content/upload/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
+                    <div class="caption">
+                        <h5>Payment Methods</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar end=============================================== -->
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Default")">Trang chủ</a> <span class="divider">/</span></li>
+                    <li class="active">Giỏ hàng</li>
+                </ul>
+                <h3>  GIỎ HÀNG [ <small>@ViewBag.count sản phẩm</small>]<a href="@Url.RouteUrl("Order", new { id = ViewBag.id})" class="btn btn-large pull-right"> GIỎ HÀNG <i class="icon-arrow-right"></i></a></h3>
+                <hr class="soft" />
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Lựa chọn</th>
+                            <th>Số lượng</th>
+                            <th>Giá tiền</th>
+                            <th>Tổng tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @Html.Action("getAccountProduct", "Cart", new { id = ViewBag.id })
+                        <tr>
+                            <td colspan="6" style="text-align:right">Total Price:	</td>
+                            <td> @Functions.ConvertToVNCurrency(ViewBag.price_total)</td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" style="text-align:right"><strong>TOTAL =</strong></td>
+                            <td class="label label-important" style="display:block"> <strong> @Functions.ConvertToVNCurrency(ViewBag.price_total) </strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="@Url.Action("Index", "Default")" class="btn btn-large"><i class="icon-arrow-left"></i> TRỞ LẠI </a>
+                <a href="@Url.Action("addToOrder", "Cart", new { cartId = ViewBag.cartId})" class="btn btn-large pull-right">MUA LUÔN<i class="icon-arrow-right"></i></a>
+
+            </div>
+            <!-- MainBody End ============================= -->
+        </div>
+    </div>
+</div>

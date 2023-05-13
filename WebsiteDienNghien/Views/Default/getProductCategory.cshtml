@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.category>
+
+@{
+    bool hadActive = false;
+}
+
+@foreach (var i in Model)
+{
+    if (!hadActive)
+    {
+        @: <div class="item active">
+            hadActive = true;
+        }
+        else
+        {
+            @: <div class="item">
+            }
+
+            <ul class="thumbnails">
+                @Html.Action("getDisplayProduct", "Default", new { id = @i.id })
+            </ul>
+        @:</div>
+}

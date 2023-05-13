@@ -1,0 +1,70 @@
+﻿@model WebsiteDienNghien.Models.feedback
+
+@{
+    ViewBag.Title = "FeedbackDetail";
+    Layout = "~/Areas/admin/Views/Shared/MyLayout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Panels</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="@Url.Action("Index", "Default")">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Phản hồi</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Chi tiết phản hồi</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="card-title">@Model.subject</h4>
+                                    <h5><b>@Model.email</b> - <small>@Model.name</small></h5>
+                                </div>
+                                <div class="col-3 ml-auto">
+                                    <a class="btn btn-round btn-primary" href="@Url.Action("FeedbackList", "Default")">
+                                        <span class="btn-label">
+                                            <i class="fas fa-angle-left"></i>
+                                        </span>
+                                        Trở về
+                                    </a>
+                                    <a class="btn btn-round btn-danger" href="@Url.Action("deleteFeedback", "Default", new { id = Model.id})">
+                                        <span class="btn-label">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                        Xoá
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content mt-2 mb-3" id="pills-tabContent">
+                                <p>
+                                    @Model.content
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,89 @@
+﻿@model WebsiteDienNghien.Auth.LoginViewModel
+
+
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+<div id="mainBody">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar ================================================== -->
+            <div id="sidebar" class="span3">
+                <div class="well well-small">
+                    <a id="myCart" href="@Url.Action("Index", "Cart", new { id = ViewBag.user_id})"><img src="~/Content/upload/images/ico-cart.png" alt="cart">GIỎ HÀNG<span class="badge badge-warning pull-right">MUA NGAY</span></a>
+                </div>
+                <ul id="sideManu" class="nav nav-tabs nav-stacked">
+                    @{Html.RenderAction("getCategorySideBar", "Default"); }
+                </ul>
+                <br />
+                <div class="thumbnail">
+                    <img src="~/Content/upload/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
+                    <div class="caption">
+                        <h5>Payment Methods</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar end=============================================== -->
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Default")">Trang chủ</a> <span class="divider">/</span></li>
+                    <li class="active">Đăng nhập</li>
+                </ul>
+                <h3> Login</h3>
+                <hr class="soft" />
+
+                <div class="row">
+                    <div class="span4">
+                        <div class="well">
+                            <h5>TẠO TÀI KHOẢN NGAY</h5><br />
+                            <form action="@Url.Action("Registration", "Account")">
+                                <div class="controls">
+                                    <button type="submit" class="btn block">Tạo tài khoản</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="span1"> &nbsp;</div>
+                    <div class="span4">
+                        <div class="well">
+                            <h5>ĐÃ CÓ TÀI KHOẢN</h5>
+                            @using (Html.BeginForm("Login", "Account", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post))
+                            {
+                                <div class="control-group">
+                                    <label class="control-label">Tên người dùng</label>
+                                    <div class="controls">
+                                        @Html.TextBoxFor(model => model.Username)
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Username)
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">Mật khẩu</label>
+                                    <div class="controls">
+                                        @Html.PasswordFor(model => model.Password)
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Password)
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        @Html.CheckBoxFor(model => model.RememberMe) Lưu mật khẩu ?
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <button type="submit" class="btn">Đăng nhập</button> <a href="@Url.Action("ForgetPass", "Account")">Quên mật khẩu ?</a>
+                                    </div>
+                                </div>
+                            }
+                            @Html.ValidationMessage("Lỗi")
+                            @Html.ValidationMessage("User")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

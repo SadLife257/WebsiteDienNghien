@@ -1,0 +1,231 @@
+﻿@using WebsiteDienNghien.Utils
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Admin - @ViewBag.Title</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/Areas/admin/Uploads/img/icon.ico" type="image/x-icon" />
+
+    <!-- Fonts and icons -->
+    <script src="/Areas/admin/Scripts/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/Areas/admin/Content/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/Areas/admin/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Areas/admin/Content/css/atlantis.min.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="main-header">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="blue">
+
+                <a href="index.html" class="logo">
+                    <img src="~/Areas/admin/Uploads/img/logo_2.svg" alt="navbar brand" class="navbar-brand">
+                </a>
+                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                        <i class="icon-menu"></i>
+                    </span>
+                </button>
+                <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+                <div class="nav-toggle">
+                    <button class="btn btn-toggle toggle-sidebar">
+                        <i class="icon-menu"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- End Logo Header -->
+            <!-- Navbar Header -->
+            <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+                <div class="container-fluid">
+                    <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+                        <li class="nav-item dropdown hidden-caret">
+                            <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                @if (@ViewBag.unread_feedback > 0)
+                                {
+                                    <span class="notification">@ViewBag.unread_feedback</span>
+                                }
+                            </a>
+                            <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+                                <li>
+                                    <div class="dropdown-title">Bạn có @ViewBag.unread_feedback phản hồi mới</div>
+                                </li>
+                                <li>
+                                    <div class="notif-scroll scrollbar-outer">
+                                        <div class="notif-center">
+                                            @{Html.RenderAction("getNotifyFeedBack", "Default"); }
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="see-all" href="@Url.Action("FeedbackList", "Default")">Xem tất cả<i class="fa fa-angle-right"></i> </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-default btn-round" href="@Url.Action("Index", "Default", new { area = "" })">
+                                <span class="btn-label">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </span>
+                                Trở về Web
+                            </a>
+                        </li>
+                    </ul>
+                @*<div class="navbar-nav topbar-nav ml-md-auto align-items-center">
+                    <a class="btn btn-default btn-round" href="@Url.Action("Index", "Default", new { area = "" })">
+                        <span class="btn-label">
+                            <i class="fas fa-angle-double-left"></i>
+                        </span>
+                        Trở về Web
+                    </a>
+                </div>*@
+            </div>
+        </nav>
+        <!-- End Navbar -->
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar sidebar-style-2">
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+            <div class="sidebar-content">
+                <ul class="nav nav-primary">
+                    <li class="nav-item active">
+                        @Html.NoEncodeActionLink(
+                        "<i class='fas fa-home'></i><p> Trang chủ </p> ",
+                        "Dashboard",
+                        "Index",
+                        "Default",
+                        routeValues: new { },
+                        htmlAttributes: new { }
+                        )
+                    </li>
+                    <li class="nav-item">
+                        @Html.NoEncodeActionLink(
+                        "<i class='fas fa-compass'></i><p> Quản lý Menu </p> ",
+                        "Menu",
+                        "Index",
+                        "Menus",
+                        routeValues: new { },
+                        htmlAttributes: new { }
+                        )
+                    </li>
+                    <li class="nav-item">
+                        @Html.NoEncodeActionLink(
+                        "<i class='fas fa-newspaper'></i><p> Quản lý New </p> ",
+                        "New",
+                        "Index",
+                        "News",
+                        routeValues: new { },
+                        htmlAttributes: new { }
+                        )
+                    </li>
+                    <li class="nav-item">
+                        @Html.NoEncodeActionLink(
+                        "<i class='fas fa-tag'></i><p> Quản lý Category </p> ",
+                        "Category",
+                        "Index",
+                        "Categories",
+                        routeValues: new { },
+                        htmlAttributes: new { }
+                        )
+                    </li>
+                    <li class="nav-item">
+                        @Html.NoEncodeActionLink(
+                         "<i class='fas fa-shopping-bag'></i><p> Quản lý Product </p> ",
+                         "Product",
+                         "Index",
+                         "Products",
+                         routeValues: new { },
+                         htmlAttributes: new { }
+                         )
+                    </li>
+                    <li class="nav-item">
+                        @Html.NoEncodeActionLink(
+                        "<i class='fas fa-user'></i><p> Quản lý Account </p> ",
+                        "Account",
+                        "Index",
+                        "Accounts",
+                        routeValues: new { },
+                        htmlAttributes: new { }
+                        )
+                    </li>
+                    <li class="nav-item">
+                        @Html.NoEncodeActionLink(
+                        "<i class='fas fa-shopping-cart'></i><p> Quản lý Cart </p> ",
+                        "Cart",
+                        "Index",
+                        "Carts",
+                        routeValues: new { },
+                        htmlAttributes: new { }
+                        )
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- End Sidebar -->
+    <!-- Content -->
+    @RenderBody()
+    <!-- End Content -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="copyright ml-auto">
+                Nguyễn Lê Gia Bảo - 52000632
+            </div>
+        </div>
+    </footer>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="/Areas/admin/Scripts/js/core/jquery.3.2.1.min.js"></script>
+    <script src="/Areas/admin/Scripts/js/core/popper.min.js"></script>
+    <script src="/Areas/admin/Scripts/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="/Areas/admin/Scripts/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/Areas/admin/Scripts/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/Areas/admin/Scripts/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+
+    <!-- Chart JS -->
+    <script src="/Areas/admin/Scripts/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="/Areas/admin/Scripts/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="/Areas/admin/Scripts/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="/Areas/admin/Scripts/js/plugin/datatables/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="/Areas/admin/Scripts/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- jQuery Vector Maps -->
+    <script src="/Areas/admin/Scripts/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+    <script src="/Areas/admin/Scripts/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="/Areas/admin/Scripts/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Atlantis JS -->
+    <script src="/Areas/admin/Scripts/js/atlantis.min.js"></script>
+
+    @RenderSection("_Header", false);
+    @RenderSection("_Footer", false);
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿@model WebsiteDienNghien.Models.news
+
+@{
+    ViewBag.Title = "Chi tiết giảm giá";
+    Layout = "~/Areas/admin/Views/Shared/MyLayout.cshtml";
+}
+
+<div class="main-panel">
+    <div class="content">
+        <div class="page-inner">
+            <div class="page-header">
+                <h4 class="page-title">Quản lý giảm giá</h4>
+                <ul class="breadcrumbs">
+                    <li class="nav-home">
+                        <a href="@Url.Action("Index", "Default")">
+                            <i class="flaticon-home"></i>
+                        </a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("Index", "News")">Quản lý giảm giá</a>
+                    </li>
+                    <li class="separator">
+                        <i class="flaticon-right-arrow"></i>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">Chi tiết giảm giá</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title">Chi tiết giảm giá</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayName("Tên")
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.name)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayName("Hình ảnh")
+                            </dt>
+
+                            <dd>
+                                <div class="avatar avatar-xxl">
+                                    <img src="~/Content/upload/images/news/@Model.img" alt="..." class="avatar-img rounded">
+                                </div>
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayName("Ẩn")
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.hide)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayName("Thứ tự")
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.order)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayName("Ngày cập nhật")
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.datebegin)
+                            </dd>
+
+                        </dl>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <p>
+                        @Html.ActionLink("Chỉnh sửa", "Edit", routeValues: new { id = Model.id }, htmlAttributes: new { data_modal = "", @class = "btn btn-success" }) |
+                        @Html.ActionLink("Trở về", "Index", routeValues: new { }, htmlAttributes: new { data_modal = "", @class = "btn btn-default" })
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.news>
+
+@{
+    bool hadActive = false;
+}
+
+@foreach (var i in Model)
+{
+    if (!hadActive)
+    {
+        @:<div class="item active">
+        hadActive = true;
+    }
+    else
+    {
+        @:<div class="item">
+    }
+        <div class="container">
+            <a href="#"><img style="width:100%" src="~/Content/upload/images/news/@i.img" alt="special offers" /></a>
+            <div class="carousel-caption">
+                <h4>@i.name</h4>
+            </div>
+        </div>
+    @:</div>
+}

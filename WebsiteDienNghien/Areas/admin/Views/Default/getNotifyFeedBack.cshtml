@@ -1,0 +1,14 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.feedback>
+
+@foreach (var i in Model)
+{
+    <a href="@Url.Action("FeedbackDetail", "Default", new { id = i.id })">
+        <div class="notif-icon notif-primary"> <i class="fas fa-envelope"></i> </div>
+        <div class="notif-content">
+            <span class="block">
+                @i.subject
+            </span>
+            <span class="time">@i.datebegin</span>
+        </div>
+    </a>
+}

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.product>
+@using WebsiteDienNghien.Utils
+
+@foreach (var i in Model)
+{
+    <li class="span3">
+        <div class="thumbnail">
+            <a href="@Url.Action("Detail", "Product", new { id = i.id})"><img src="~/Content/upload/images/products/@i.img" alt="" /></a>
+            <div class="caption">
+                <h5>@i.name</h5>
+                <h4 style="text-align:center"><a class="btn" href="@Url.Action("Detail", "Product", new { id = i.id})"> <i class="icon-zoom-in"></i></a> <a class="btn" href="@ViewBag.meta/@i.meta/@i.id">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="@Url.Action("Detail", "Product", new { id = i.id})">@Functions.ConvertToVNCurrency(i.price)</a></h4>
+            </div>
+        </div>
+    </li>
+}

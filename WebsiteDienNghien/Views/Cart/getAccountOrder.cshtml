@@ -1,0 +1,30 @@
+﻿@model IEnumerable<WebsiteDienNghien.Models.cart>
+@using WebsiteDienNghien.Utils
+
+@foreach (var i in Model)
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Lựa chọn</th>
+                <th>Số lượng</th>
+                <th>Giá tiền</th>
+                <th>Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @Html.Action("getOrderProduct", "Cart", new { id = i.id })
+            <tr>
+                <td colspan="6" style="text-align:right">Total Price:	</td>
+                <td> @Functions.ConvertToVNCurrency(i.total)</td>
+            </tr>
+            <tr>
+                <td colspan="1" style="text-align:right"><a href="#" class="btn btn-danger"> HỦY ĐƠN </a></td>
+                <td colspan="1" style="text-align:right"><a href="#" class="btn btn-success"> ĐÃ NHẬN ĐƯỢC HÀNG </a></td>
+                <td colspan="4" style="text-align:right"><strong>TOTAL =</strong></td>
+                <td class="label label-important" style="display:block"> <strong> @Functions.ConvertToVNCurrency(i.total) </strong></td>
+            </tr>
+        </tbody>
+    </table>
+}

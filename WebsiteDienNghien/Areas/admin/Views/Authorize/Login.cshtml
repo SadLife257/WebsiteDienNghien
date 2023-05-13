@@ -1,0 +1,106 @@
+﻿@model WebsiteDienNghien.Auth.LoginViewModel
+@{
+    ViewBag.Title = "Yêu cầu đăng nhập";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Admin - @ViewBag.Title</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="/Areas/admin/Uploads/img/icon.ico" type="image/x-icon" />
+
+    <!-- Fonts and icons -->
+    <script src="/Areas/admin/Scripts/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/Areas/admin/Content/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/Areas/admin/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Areas/admin/Content/css/atlantis.min.css">
+</head>
+<body>
+    <div class="wrapper bg-primary-gradient">
+        <div class="content">
+            <div class="page-inner py-5">
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <img src="/Areas/admin/Uploads/img/logo_2.png"
+                             alt="navbar brand"
+                             style="margin-left: auto; margin-right: auto; display: block" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-header">
+                <div class="page-inner py-5">
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto">
+                            <h1 class="text-white pb-2 fw-bold" style="text-align: center">
+                                ĐĂNG NHẬP
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-inner mt--5">
+                <div class="row mt--2">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <div class="card full-height">
+                            <div class="card-body">
+                                @using (Html.BeginForm("Login", "Authorize", new { returnUrl = ViewBag.returnUrl }, FormMethod.Post))
+                                {
+                                    <div class="form-group">
+                                        <label>Tên đăng nhập</label>
+                                        @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mật khẩu</label>
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                                    </div>
+                                    <div class="card-action"
+                                         style="display: flex; justify-content: space-between">
+                                        <a class="btn btn-default" href="@Url.Action("Index", "Default", new { area = "" })">
+                                            Trở về Web
+                                        </a>
+                                        <button type="submit" class="btn btn-success">Đăng nhập</button>
+                                    </div>
+                                }
+                                @Html.ValidationMessage("Lỗi")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--   Core JS Files   -->
+    <script src="/Areas/admin/Scripts/js/core/jquery.3.2.1.min.js"></script>
+    <script src="/Areas/admin/Scripts/js/core/popper.min.js"></script>
+    <script src="/Areas/admin/Scripts/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="/Areas/admin/Scripts/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="/Areas/admin/Scripts/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="/Areas/admin/Scripts/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="/Areas/admin/Scripts/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="/Areas/admin/Scripts/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Atlantis JS -->
+    <script src="/Areas/admin/Scripts/js/atlantis.min.js"></script>
+</body>
+</html>
+

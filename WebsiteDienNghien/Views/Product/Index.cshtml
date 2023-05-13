@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Sản phẩm";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+<div id="mainBody">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar ================================================== -->
+            <div id="sidebar" class="span3">
+                <div class="well well-small">
+                    <a id="myCart" href="@Url.Action("Index", "Cart", new { id = ViewBag.user_id})"><img src="/Content/upload/images/ico-cart.png" alt="cart">GIỎ HÀNG<span class="badge badge-warning pull-right">MUA NGAY</span></a>
+                </div>
+                <ul id="sideManu" class="nav nav-tabs nav-stacked">
+                    @{Html.RenderAction("getCategorySideBar", "Default"); }
+                </ul>
+                <br />
+                <div class="thumbnail">
+                    <img src="/Content/upload/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
+                    <div class="caption">
+                        <h5>Payment Methods</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- Sidebar end=============================================== -->
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href="@Url.Action("Index", "Default")">Trang chủ</a> <span class="divider">/</span></li>
+                    <li class="active">@Model.name</li>
+                </ul>
+                <h3>@Model.name<small class="pull-right"> @ViewBag.count products are available </small></h3>
+                <hr class="soft" />
+                <hr class="soft" />
+
+                <div id="myTab" class="pull-right">
+                    <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+                    <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+                </div>
+                <br class="clr" />
+                <div class="tab-content">
+                    <div class="tab-pane" id="listView">
+                        @Html.Action("getProductList", "Product", new { id = Model.id})
+                    </div>
+
+                    <div class="tab-pane  active" id="blockView">
+                        <ul class="thumbnails">
+                            @Html.Action("getProductBlock", "Product", new { id = Model.id})
+                        </ul>
+                        <hr class="soft" />
+                    </div>
+                </div>
+
+                <br class="clr" />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MainBody End ============================= -->
